@@ -1,0 +1,14 @@
+D:\Programming\Git\RankToText\GetRankText\bin\Debug\GetRankText.exe.config
+D:\Programming\Git\RankToText\GetRankText\obj\Debug\GetRankText.csprojResolveAssemblyReference.cache
+D:\Programming\Git\RankToText\GetRankText\obj\Debug\MainWindow.baml
+D:\Programming\Git\RankToText\GetRankText\obj\Debug\MainWindow.g.cs
+D:\Programming\Git\RankToText\GetRankText\obj\Debug\App.g.cs
+D:\Programming\Git\RankToText\GetRankText\obj\Debug\GetRankText_MarkupCompile.cache
+D:\Programming\Git\RankToText\GetRankText\obj\Debug\GetRankText.g.resources
+D:\Programming\Git\RankToText\GetRankText\obj\Debug\GetRankText.Properties.Resources.resources
+D:\Programming\Git\RankToText\GetRankText\obj\Debug\GetRankText.csproj.GenerateResource.Cache
+D:\Programming\Git\RankToText\GetRankText\bin\Debug\GetRankText.exe
+D:\Programming\Git\RankToText\GetRankText\bin\Debug\GetRankText.pdb
+D:\Programming\Git\RankToText\GetRankText\bin\Debug\Newtonsoft.Json.dll
+D:\Programming\Git\RankToText\GetRankText\obj\Debug\GetRankText.exe
+D:\Programming\Git\RankToText\GetRankText\obj\Debug\GetRankText.pdb
