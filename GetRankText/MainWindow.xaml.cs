@@ -40,6 +40,8 @@ namespace GetRankText
             dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             dispatcherTimer.Stop();
+            _apikey = ApiBox.Text;
+            ApiBox.Text = "<hidden>";
         }
         public void SaveFile(string text)
         {
@@ -94,33 +96,61 @@ namespace GetRankText
             }
             catch
             {
-                
+              
             }
             
             return Rank;
         }
         public string GetSummonerID()
         {
-            //Creates WebClient
-            using (var Client = new WebClient())
+            try
             {
-                Client.Proxy = null;
+                //Creates WebClient
+                using (var Client = new WebClient())
+                {
+                    Client.Proxy = null;
 
-                //Gets Summoner information | name, id, profileIconId, summonerLevel, revisionDate
-                string url = ("https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/" + _SummonerName.Replace(" ", "%20") + "?api_key=" + _apikey);
-                var SummonerData = Client.DownloadString(url);
+                    //Gets Summoner information | name, id, profileIconId, summonerLevel, revisionDate
+                    string url = ("https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/" + _SummonerName.Replace(" ", "%20") + "?api_key=" + _apikey);
+                    var SummonerData = Client.DownloadString(url);
 
-                //Puts summoner information into json
-                JObject jsonSummonerData = JObject.Parse(SummonerData);
-                //Removes spaces from variable _SummonerName 
-                _SummonerName = _SummonerName.Replace(" ", "");
+                    //Puts summoner information into json
+                    JObject jsonSummonerData = JObject.Parse(SummonerData);
+                    //Removes spaces from variable _SummonerName 
+                    _SummonerName = _SummonerName.Replace(" ", "");
 
-                //Sets currentusers properties to the correct json ones;
-                string SummonerID = (string)(jsonSummonerData[_SummonerName.ToLower()]["id"]);
-                return SummonerID;
+                    //Sets currentusers properties to the correct json ones;
+                    string SummonerID = (string)(jsonSummonerData[_SummonerName.ToLower()]["id"]);
+                    return SummonerID;
+                }
+            }
+            catch (WebException WebEx)
+            {
+                var error = ((HttpWebResponse)WebEx.Response).StatusCode;
+                MessageBox.Show(error.ToString());
+                ToggleTimer();
+                return null;
+               
             }
         }
-
+        public void ToggleTimer()
+        {
+            toggle = !toggle;
+            if (toggle == true)
+            {
+                ToggleButton.Content = "Stop"; ;
+                _SummonerName = SummonerBox.Text;
+                Location = LocationBox.Text;
+                SaveFile(GetRank());
+                dispatcherTimer.Start();
+                TimeNext = 300;
+            }
+            else
+            {
+                ToggleButton.Content = "Start";
+                dispatcherTimer.Stop();
+            }
+        }
         //Timer
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
@@ -135,23 +165,7 @@ namespace GetRankText
         //Controlls
         private void ToggleButton_Click(object sender, RoutedEventArgs e)
         {
-            toggle = !toggle;
-            if (toggle == true)
-            {
-                ToggleButton.Content = "Stop";
-                _apikey = ApiBox.Text;
-                _SummonerName = SummonerBox.Text;
-                Location = LocationBox.Text;
-                SaveFile(GetRank());
-                dispatcherTimer.Start();
-                TimeNext = 300;
-            }
-            else
-            {
-                ToggleButton.Content = "Start";
-                dispatcherTimer.Stop();
-            }
-            
+            ToggleTimer();
         }
 
 
