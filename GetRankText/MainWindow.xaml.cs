@@ -26,7 +26,7 @@ namespace GetRankText
     {
         static string _apikey;
         static string _SummonerName;
-        static int Minutes;
+        //static int Minutes;
         static string Location;
         static int TimeNext;
         static bool toggle = false;
@@ -45,7 +45,8 @@ namespace GetRankText
         }
         public void SaveFile(string text)
         {
-            string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\LeagueRank.txt";
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            path = path + @"\" + _SummonerName + "-Rank.txt";
                 // Create a file to write to. 
                 using (StreamWriter sw = File.CreateText(path))
                 {
